@@ -1,9 +1,6 @@
 # Выбираем базовый образ
 FROM node:alpine as build
 
-# Создаем директорию приложения
-WORKDIR /usr/src/app
-
 # Копируем файлы package.json и package-lock.json
 COPY package*.json ./
 
@@ -14,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Делаем сборку приложения
-RUN npm build
+RUN npm run build
 
 FROM nginx:stable-alpine
 

@@ -1,8 +1,5 @@
 # Выбираем базовый образ
-FROM node:14
-
-# Создаем директорию приложения
-WORKDIR /usr/src/app
+FROM node:alpine
 
 # Копируем файлы package.json и package-lock.json
 COPY package*.json ./
@@ -13,8 +10,11 @@ RUN npm install
 # Копируем исходный код приложения в контейнер
 COPY . .
 
+# Делаем сборку приложения
+RUN npm run build
+
 # Открываем порт, на котором будет работать приложение
 EXPOSE 8000
 
 # Запускаем приложение
-CMD [ "node", "index.js" ]
+CMD [ "node", "build/index.js" ]
